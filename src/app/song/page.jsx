@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, // @ts-types="react"
-useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { apiroot3 } from "../apiroot";
 import Tippy, { useSingleton } from "@tippyjs/react";
@@ -368,7 +367,7 @@ function LikeSender({ songid }) {
           </svg>
         </button>
         <p>{likecount}</p>
-        <audio ref={dislikeSfxRef} src='snd_splat.wav' />
+        <audio ref={dislikeSfxRef} src='./sounds/snd_splat.wav' />
         <button
           className="linkContentWithBorder"
           id="submitbuttondislike"
