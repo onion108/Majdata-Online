@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, // @ts-types="react"
+useRef, useState } from "react";
 import useSWR from "swr";
 import { apiroot3 } from "../apiroot";
 import Tippy, { useSingleton } from "@tippyjs/react";
@@ -289,6 +290,7 @@ function MajdataView({ id }) {
 }
 
 function LikeSender({ songid }) {
+  const dislikeSfxRef = useRef();
   const { data, error, isLoading, mutate } = useSWR(
     apiroot3 + "/maichart/" + songid + "/interact",
     fetcher
@@ -332,6 +334,9 @@ function LikeSender({ songid }) {
         toast.success(data.IsLiked ? "取消成功" : name + "成功");
       } else {
         toast.success(data.IsDisLiked ? "取消成功" : name + "成功");
+        if (dislikeSfxRef.current) {
+          dislikeSfxRef.current.play();
+        }
       }
 
       mutate();
@@ -363,6 +368,7 @@ function LikeSender({ songid }) {
           </svg>
         </button>
         <p>{likecount}</p>
+        <audio ref={dislikeSfxRef} src='snd_splat.wav' />
         <button
           className="linkContentWithBorder"
           id="submitbuttondislike"
